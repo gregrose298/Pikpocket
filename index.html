@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>MonBudget</title>
+    <meta name="description" content="Gérez votre budget simplement à Maurice" />
+    <meta name="theme-color" content="#7c3aed" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="MonBudget" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <link rel="icon" type="image/png" href="/icons/icon-192.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+      body{font-family:'Sora',sans-serif;background:#f4f3f8;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom);}
+      #loading{display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:16px;}
+      #loading .logo{width:72px;height:72px;border-radius:22px;background:linear-gradient(135deg,#7c3aed,#c026d3);display:flex;align-items:center;justify-content:center;font-size:36px;box-shadow:0 12px 32px rgba(124,58,237,.4);}
+      #loading p{font-size:14px;color:#94a3b8;font-weight:600;font-family:'Sora',sans-serif;}
+    </style>
+  </head>
+  <body>
+    <div id="loading">
+      <div class="logo">💰</div>
+      <p>Chargement…</p>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      if('serviceWorker' in navigator){
+        window.addEventListener('load',()=>{
+          navigator.serviceWorker.register('/service-worker.js')
+            .then(r=>{ setInterval(()=>r.update(),60000); console.log('SW ok'); })
+            .catch(e=>console.error('SW error',e));
+        });
+      }
+    </script>
+  </body>
+</html>
